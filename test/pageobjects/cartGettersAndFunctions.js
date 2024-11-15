@@ -17,11 +17,26 @@ class Cart extends Site {
     get removeBtn () {
         return $('button#remove-sauce-labs-bike-light')
     }
-    get continueBtn () {
+    get continueShoppingBtn () {
         return $('button#continue-shopping')
     }
     get checkoutBtn () {
         return $('button#checkout')
+    }
+    get cancelBtn () {
+        return $('button#cancel')
+    }
+    get firstNameField () {
+        return $('input#first-name')      
+    }
+    get lastNameField () {
+        return $('input#last-name')
+    }
+    get zipCodeField () {
+        return $('input#postal-code')
+    }
+    get continueBtn () {
+        return $('input#continue')
     }
     async addItems () {
         this.cartItem1.click()
@@ -35,10 +50,34 @@ class Cart extends Site {
         this.removeBtn.click()
     }
     async continueShopping () {
-        this.continueBtn.click()
+        this.continueShoppingBtn.click()
     }
     async checkout() {
         this.checkoutBtn.click()
+    }
+    async cancel () {
+        this.cancelBtn.click()
+    }
+    async firstNameEnter (firstname) {
+        await this.firstNameField.setValue(firstname)
+    }
+    async lastNameEnter(lastname) {
+        await this.lastNameField.setValue(lastname)
+    }
+    async zipCodeEnter(postalcode) {
+        await this.zipCodeField.setValue(postalcode)
+    }
+    async firstNameClear () {
+        await this.firstNameField.clearValue()
+    }
+    async lastNameClear() {
+        await this.lastNameField.clearValue()
+    }
+    async zipCodeClear() {
+        await this.zipCodeField.clearValue()
+    }
+    async continue() {
+        this.continueBtn.click()
     }
 }
 export default new Cart()
