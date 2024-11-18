@@ -8,8 +8,5 @@ class Verify extends Site {
     get removedItem () {
         return $('button#remove-sauce-labs-bike-light')
     }
-    get errorMessage () {
-        return $('div.error-message-container.error')
-    }
 }
 export default new Verify();

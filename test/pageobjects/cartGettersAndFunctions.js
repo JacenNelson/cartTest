@@ -1,5 +1,7 @@
 import { $ } from '@wdio/globals'
 import Site from './website.js'
+import { browser } from '@wdio/globals'
+import Verify from './verification.js'
 
 class Cart extends Site {
     get cartItem1 () {
@@ -20,64 +22,30 @@ class Cart extends Site {
     get continueShoppingBtn () {
         return $('button#continue-shopping')
     }
-    get checkoutBtn () {
-        return $('button#checkout')
-    }
-    get cancelBtn () {
-        return $('button#cancel')
-    }
-    get firstNameField () {
-        return $('input#first-name')      
-    }
-    get lastNameField () {
-        return $('input#last-name')
-    }
-    get zipCodeField () {
-        return $('input#postal-code')
-    }
-    get continueBtn () {
-        return $('input#continue')
+    get itemDescription () {
+        return $('a.item_4_title_link')
     }
     async addItems () {
         this.cartItem1.click()
         this.cartItem2.click()
         this.cartItem3.click()
+        expect(Verify.ItemCount).toHaveText('3')
     }
     async goToCart () {
         this.cartLink.click()
+        expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html')
     }
     async removeItem () {
         this.removeBtn.click()
+        expect (Verify.removedItem).not.toBeExisting()
     }
     async continueShopping () {
         this.continueShoppingBtn.click()
+        expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html')
     }
-    async checkout() {
-        this.checkoutBtn.click()
+    async itemDescriptionPage () {
+        this.itemDescription.click()
+        expect (browser).toHaveUrl('https://www.saucedemo.com/inventory-item.html?id=4')
     }
-    async cancel () {
-        this.cancelBtn.click()
-    }
-    async firstNameEnter (firstname) {
-        await this.firstNameField.setValue(firstname)
-    }
-    async lastNameEnter(lastname) {
-        await this.lastNameField.setValue(lastname)
-    }
-    async zipCodeEnter(postalcode) {
-        await this.zipCodeField.setValue(postalcode)
-    }
-    async firstNameClear () {
-        await this.firstNameField.clearValue()
-    }
-    async lastNameClear() {
-        await this.lastNameField.clearValue()
-    }
-    async zipCodeClear() {
-        await this.zipCodeField.clearValue()
-    }
-    async continue() {
-        this.continueBtn.click()
-    }
-}
+   }
 export default new Cart()
